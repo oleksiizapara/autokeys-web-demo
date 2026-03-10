@@ -299,51 +299,17 @@
                 <p>With over 269 five-star reviews, we let our customers speak for the quality of our work.</p>
             </div>
 
-            <div class="reviews-grid">
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-avatar">J</div>
-                        <div>
-                            <h4>John D.</h4>
-                            <div class="stars small"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                    class="fa-solid fa-star"></i></div>
-                        </div>
+            <div class="reviews-slider-wrapper">
+                <button class="review-nav prev" id="review-prev" aria-label="Previous Review"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="reviews-container">
+                    <div class="reviews-track" id="reviews-track">
+                        <!-- Reviews will be populated dynamically via JavaScript -->
                     </div>
-                    <p class="review-text">"Lost my only key for a Mazda at the worst possible time. Called Auto Keys,
-                        and they were with me in under an hour. Less than 30 mins later I had a brand new programmed
-                        key. Absolute lifesavers!"</p>
                 </div>
-
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-avatar img-avatar"><img
-                                src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah"></div>
-                        <div>
-                            <h4>Sarah W.</h4>
-                            <div class="stars small"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                    class="fa-solid fa-star"></i></div>
-                        </div>
-                    </div>
-                    <p class="review-text">"Priced a spare fob for my Swift at the dealer and almost fainted. Found
-                        these guys and they did it for a fraction of the price. Works perfectly. Highly recommend!"</p>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-avatar">M</div>
-                        <div>
-                            <h4>Mike T.</h4>
-                            <div class="stars small"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                    class="fa-solid fa-star"></i></div>
-                        </div>
-                    </div>
-                    <p class="review-text">"Professional, fast, and very reasonably priced. The guy really knows his
-                        stuff and had the specialized tools right in his van. Best locksmith in Chch."</p>
-                </div>
+                <button class="review-nav next" id="review-next" aria-label="Next Review"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
+            
+            <div class="review-dots" id="review-dots"></div>
 
             <div class="center mt-40">
                 <a href="https://maps.app.goo.gl/BHctkVkmfWE87d4w9" target="_blank" class="btn btn-secondary">
@@ -495,6 +461,155 @@
                 }
             });
         });
+
+        // Dynamic Reviews Widget
+        const reviewsData = [
+            {
+                name: "John D.",
+                avatarType: "text",
+                avatarData: "J",
+                text: "Lost my only key for a Mazda at the worst possible time. Called Auto Keys, and they were with me in under an hour. Less than 30 mins later I had a brand new programmed key. Absolute lifesavers!"
+            },
+            {
+                name: "Sarah W.",
+                avatarType: "img",
+                avatarData: "https://randomuser.me/api/portraits/women/44.jpg",
+                text: "Priced a spare fob for my Swift at the dealer and almost fainted. Found these guys and they did it for a fraction of the price. Works perfectly. Highly recommend!"
+            },
+            {
+                name: "Mike T.",
+                avatarType: "text",
+                avatarData: "M",
+                text: "Professional, fast, and very reasonably priced. The guy really knows his stuff and had the specialized tools right in his van. Best locksmith in Chch."
+            },
+            {
+                name: "Emma L.",
+                avatarType: "img",
+                avatarData: "https://randomuser.me/api/portraits/women/68.jpg",
+                text: "Incredible service! I locked my keys in the trunk. The technician arrived in 20 minutes and opened it without a scratch. Highly recommend Auto Keys."
+            },
+            {
+                name: "David R.",
+                avatarType: "text",
+                avatarData: "D",
+                text: "Very polite and efficient. I needed a new remote for my Toyota and they sorted it out on the spot. Great communication throughout."
+            },
+            {
+                name: "Jessica G.",
+                avatarType: "text",
+                avatarData: "J",
+                text: "Super responsive. Messaged them late at night and they replied instantly. Fixed my broken ignition the very next morning."
+            }
+        ];
+
+        const track = document.getElementById('reviews-track');
+        const dotsContainer = document.getElementById('review-dots');
+        const prevBtn = document.getElementById('review-prev');
+        const nextBtn = document.getElementById('review-next');
+
+        if (track && dotsContainer && prevBtn && nextBtn) {
+            const starHTML = '<i class="fa-solid fa-star"></i>'.repeat(5);
+            
+            reviewsData.forEach((review) => {
+                const avatarHTML = review.avatarType === 'img' 
+                    ? `<div class="reviewer-avatar img-avatar"><img src="${review.avatarData}" alt="${review.name}"></div>`
+                    : `<div class="reviewer-avatar">${review.avatarData}</div>`;
+
+                const cardHTML = `
+                    <div class="review-card">
+                        <div class="review-header">
+                            ${avatarHTML}
+                            <div>
+                                <h4>${review.name}</h4>
+                                <div class="stars small">${starHTML}</div>
+                            </div>
+                        </div>
+                        <p class="review-text">"${review.text}"</p>
+                    </div>
+                `;
+                track.insertAdjacentHTML('beforeend', cardHTML);
+            });
+
+            let currentIndex = 0;
+            let cardsPerView = window.innerWidth >= 992 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
+            let totalCards = reviewsData.length;
+            
+            const setupDots = () => {
+                dotsContainer.innerHTML = '';
+                const dotCount = Math.max(1, totalCards - cardsPerView + 1);
+                for (let i = 0; i < dotCount; i++) {
+                    const dot = document.createElement('button');
+                    dot.classList.add('dot');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.addEventListener('click', () => slideTo(i));
+                    dotsContainer.appendChild(dot);
+                }
+                updateDots();
+            };
+
+            const updateDots = () => {
+                const dots = document.querySelectorAll('.review-dots .dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            };
+
+            const slideTo = (index) => {
+                const maxIndex = Math.max(0, totalCards - cardsPerView);
+                if (index < 0) index = maxIndex;
+                if (index > maxIndex) index = 0;
+                
+                currentIndex = index;
+                
+                const cardElement = track.querySelector('.review-card');
+                if (cardElement) {
+                    const cardStyle = window.getComputedStyle(cardElement);
+                    const marginLR = parseFloat(cardStyle.marginLeft) + parseFloat(cardStyle.marginRight);
+                    const cardFullWidth = cardElement.offsetWidth + marginLR;
+                    
+                    track.style.transform = `translateX(-${currentIndex * cardFullWidth}px)`;
+                }
+                updateDots();
+            };
+
+            prevBtn.addEventListener('click', () => slideTo(currentIndex - 1));
+            nextBtn.addEventListener('click', () => slideTo(currentIndex + 1));
+
+            let autoSlideInterval = setInterval(() => {
+                slideTo(currentIndex + 1);
+            }, 5000);
+
+            const stopAutoSlide = () => clearInterval(autoSlideInterval);
+            const startAutoSlide = () => {
+                stopAutoSlide();
+                autoSlideInterval = setInterval(() => slideTo(currentIndex + 1), 5000);
+            };
+
+            document.querySelector('.reviews-slider-wrapper').addEventListener('mouseenter', stopAutoSlide);
+            document.querySelector('.reviews-slider-wrapper').addEventListener('mouseleave', startAutoSlide);
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    const newCardsPerView = window.innerWidth >= 992 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
+                    if (newCardsPerView !== cardsPerView) {
+                        cardsPerView = newCardsPerView;
+                        currentIndex = 0;
+                        setupDots();
+                        slideTo(0);
+                    } else {
+                        // Recalculate widths properly on resize even if cardsPerView remains same
+                        slideTo(currentIndex);
+                    }
+                }, 250);
+            });
+
+            setupDots();
+            
+            // For initial correct calculation, wait slight delay to let DOM stabilize if needed
+            setTimeout(() => slideTo(0), 100);
+        }
     </script>
 </body>
 
