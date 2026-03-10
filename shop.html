@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Auto Keys | Post Ordering</title>
+    <meta name="description"
+        content="Order replacement car keys online. We ship smart keys and blanks for Toyota, Mazda, Nissan, Honda, and Subaru across New Zealand.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .shop-header {
+            padding-top: 150px;
+            padding-bottom: 50px;
+            text-align: center;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        @media (max-width: 900px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .product-card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .product-image {
+            background: linear-gradient(145deg, #1a1d24, #0f1115);
+            border-radius: 8px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 4rem;
+            color: var(--color-primary);
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--color-white);
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--color-white);
+            margin-bottom: 20px;
+        }
+
+        .stripe-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .stripe-badge i {
+            color: #635bff;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">Auto</span><span class="logo-accent">Keys</span>
+            </a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <ul>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#suzuki">Suzuki Swift PRO</a></li>
+                    <li><a href="shop.html" style="color: var(--color-white); opacity: 1;">Shop</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="tel:02040111533" class="btn btn-primary emergency-btn">
+                    <span class="emergency-pulse"></span>
+                    <i class="fa-solid fa-phone"></i> <span class="phone-number">020 4011 1533</span>
+                </a>
+                <button class="menu-toggle" id="mobile-menu" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="shop-header">
+        <div class="container">
+            <span class="section-tag">Online Store</span>
+            <h2>Order Keys Directly to Your Door</h2>
+            <p style="color: var(--color-text-muted); max-width: 600px; margin: 0 auto;">Select your vehicle make below to order a replacement key blank or remote. Payments are securely processed via Stripe.</p>
+        </div>
+    </div>
+
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="product-grid">
+                
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fa-solid fa-car-side"></i>
+                    </div>
+                    <h3 class="product-title">Toyota Smart Key</h3>
+                    <p class="product-desc">Uncut Smart Key ready for programming. Suitable for most modern Toyota push-to-start models.</p>
+                    <div class="product-price">$149.00</div>
+                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
+                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
+                    </a>
+                    <div class="stripe-badge">
+                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <h3 class="product-title">Mazda Smart Key</h3>
+                    <p class="product-desc">Replacement fob for Mazda vehicles. Includes emergency blade blank inside.</p>
+                    <div class="product-price">$149.00</div>
+                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
+                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
+                    </a>
+                    <div class="stripe-badge">
+                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fa-solid fa-car-on"></i>
+                    </div>
+                    <h3 class="product-title">Nissan Smart Key</h3>
+                    <p class="product-desc">OEM style Nissan intelligent key blank. Compatible with Tiida, Leaf, Dualis and more.</p>
+                    <div class="product-price">$149.00</div>
+                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
+                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
+                    </a>
+                    <div class="stripe-badge">
+                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fa-solid fa-unlock-keyhole"></i>
+                    </div>
+                    <h3 class="product-title">Honda Remote Key</h3>
+                    <p class="product-desc">Integrated 2/3 button remote with key blade. Needs cutting and programming locally.</p>
+                    <div class="product-price">$129.00</div>
+                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
+                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
+                    </a>
+                    <div class="stripe-badge">
+                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fa-solid fa-car-burst"></i>
+                    </div>
+                    <h3 class="product-title">Subaru Remote Key</h3>
+                    <p class="product-desc">Subaru remote key blank. Perfect for replacing worn out rubber buttons or lost spares.</p>
+                    <div class="product-price">$139.00</div>
+                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
+                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
+                    </a>
+                    <div class="stripe-badge">
+                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border-top: 1px solid var(--color-border); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <div class="footer-logo">
+                    <span class="logo-text" style="font-size: 1.5rem; font-weight: 800; color: white;">Auto</span><span class="logo-accent" style="font-size: 1.5rem; font-weight: 800; color: var(--color-accent);">Keys</span>
+                    <p class="footer-company" style="color: var(--color-text-muted); font-size: 0.9rem; margin-top: 5px;">Auto Island LTD</p>
+                </div>
+                <div class="footer-links" style="display: flex; gap: 20px;">
+                    <a href="#" style="color: var(--color-text-muted); font-size: 0.9rem;">Privacy Policy</a>
+                    <a href="#" style="color: var(--color-text-muted); font-size: 0.9rem;">Terms of Service</a>
+                </div>
+                <p class="copyright" style="color: var(--color-text-muted); font-size: 0.9rem;">&copy; 2026 Auto Island LTD. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu JS -->
+    <script>
+        const menuToggle = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        if (menuToggle && navMenu && menuIcon) {
+            menuToggle.addEventListener('click', function () {
+                navMenu.classList.toggle('active');
+                if (navMenu.classList.contains('active')) {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-xmark');
+                } else {
+                    menuIcon.classList.remove('fa-xmark');
+                    menuIcon.classList.add('fa-bars');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
