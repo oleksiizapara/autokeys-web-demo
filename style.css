@@ -194,7 +194,6 @@ a {
     background: none;
     border: none;
     padding: 8px; /* Increased tap target */
-    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -602,8 +601,23 @@ a {
 
 .feature-list i {
     color: var(--color-primary);
-    font-size: 0.9rem;
-    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: var(--transition);
+    filter: blur(20px);
+    z-index: 0;
+}
+
+.brand-card:hover .glow {
+    opacity: 0.15;
+}
+
+.brand-card > * {
+    position: relative;
+    z-index: 1;
 }
 
 /* ==================================
@@ -909,12 +923,17 @@ input:focus, select:focus {
     
     .service-bar-grid,
     .services-grid,
+    .brand-grid,
     .reviews-grid,
     .suzuki-grid,
     .suzuki-features,
     .contact-grid {
         grid-template-columns: 1fr;
         gap: 24px;
+    }
+
+    .brand-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
     
     .suzuki-image {
