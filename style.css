@@ -337,6 +337,120 @@ a {
 /* ==================================
    Service Quick Bar
 =================================== */
+/* ==================================
+   Trust Features Section
+=================================== */
+.trust-features {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: 60px 0;
+}
+
+.features-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    text-align: center;
+}
+
+.f-item i {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 15px;
+}
+
+.f-item h4 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.f-item p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+/* ==================================
+   Pricing Section
+=================================== */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.price-box {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+    transition: var(--transition);
+}
+
+.price-box:hover {
+    transform: translateY(-5px);
+}
+
+.price-box.highlight {
+    border-color: var(--color-primary);
+    background: linear-gradient(180deg, var(--color-card-bg) 0%, rgba(255, 184, 0, 0.05) 100%);
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-white);
+    margin: 15px 0;
+}
+
+.price span {
+    color: var(--color-primary);
+}
+
+.p-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-primary);
+    color: #000;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 50px;
+}
+
+/* ==================================
+   Floating Quick Contact
+=================================== */
+.floating-cta {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+}
+
+.btn-float {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #25d366; /* WhatsApp Green */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    transition: var(--transition);
+}
+
+.btn-float:hover {
+    transform: scale(1.1) rotate(5deg);
+    background-color: #128c7e;
+}
+
+/* Original Service Quick Bar - will be replaced/moved */
 .service-bar {
     background-color: var(--color-bg-darker);
     border-top: 1px solid var(--color-border);
@@ -767,10 +881,21 @@ input:focus, select:focus {
         gap: 24px;
     }
     
-    .suzuki-grid,
-    .contact-grid {
+    .features-row,
+    .pricing-grid {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 24px;
+    }
+    
+    .floating-cta {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .btn-float {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
     }
     
     .menu-toggle {
