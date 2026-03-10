@@ -880,9 +880,28 @@ input:focus, select:focus {
     
     .service-bar-grid,
     .services-grid,
-    .reviews-grid {
+    .reviews-grid,
+    .suzuki-grid,
+    .suzuki-features,
+    .contact-grid {
         grid-template-columns: 1fr;
         gap: 24px;
+    }
+    
+    .suzuki-image {
+        order: -1;
+        margin-bottom: 20px;
+    }
+
+    .glass-float {
+        position: relative;
+        bottom: 0;
+        right: 0;
+        transform: none;
+        margin-top: -30px;
+        margin-left: 20px;
+        display: inline-flex;
+        width: auto;
     }
     
     .trust-features {
@@ -990,5 +1009,17 @@ input:focus, select:focus {
     
     .emergency-btn {
         padding: 10px;
+    }
+    
+    .suzuki-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-form-wrapper {
+        overflow: hidden; /* Prevent form overflow */
+    }
+    
+    input, select {
+        font-size: 16px; /* Avoid zoom on iOS, but good for focus anywhere */
     }
 }
