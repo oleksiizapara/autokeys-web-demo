@@ -18,8 +18,8 @@
     --color-white: #ffffff;
     --color-border: rgba(255, 255, 255, 0.1);
     
-    --font-main: 'Inter', sans-serif;
-    --transition: all 0.3s ease;
+    --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -575,6 +575,7 @@ a {
 .feature-list i {
     color: var(--color-primary);
     font-size: 0.9rem;
+    flex-shrink: 0;
 }
 
 /* ==================================
@@ -808,10 +809,11 @@ input, select {
     background-color: rgba(0,0,0,0.2);
     border: 1px solid rgba(255,255,255,0.1);
     color: var(--color-white);
-    padding: 14px 16px;
+    padding: 16px; /* Increased for mobile touch */
     border-radius: 8px;
     font-family: inherit;
     font-size: 1rem;
+    height: 54px; /* Explicit height for targets */
     transition: var(--transition);
 }
 
@@ -911,6 +913,13 @@ input:focus, select:focus {
 
     .f-item {
         padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .f-item p {
+        margin-bottom: 0;
     }
 
     .pricing-grid {
@@ -918,8 +927,8 @@ input:focus, select:focus {
         gap: 20px;
     }
     
-    .pricing-section {
-        padding-bottom: 120px; /* Stronger offset for floating button */
+    .contact-form-wrapper {
+        margin-bottom: 60px; /* Space for FAB */
     }
     
     .floating-cta {
