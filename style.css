@@ -325,10 +325,19 @@ a {
 .afterpay-badge {
     background-color: #b2fce4;
     color: #000;
-    font-weight: 700;
-    padding: 4px 12px;
+    font-weight: 800;
+    padding: 6px 14px;
     border-radius: 4px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 15px rgba(178, 252, 228, 0.3);
+    animation: pulse-green 3s infinite;
+}
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(178, 252, 228, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(178, 252, 228, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(178, 252, 228, 0); }
 }
 
 .payment-icons {
