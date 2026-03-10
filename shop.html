@@ -27,7 +27,7 @@
             margin-bottom: 80px;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .product-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -60,26 +60,37 @@
         .product-image {
             background: linear-gradient(145deg, #1a1d24, #0f1115);
             border-radius: 8px;
-            height: 180px;
+            height: 220px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
-            font-size: 4rem;
-            color: var(--color-primary);
+            overflow: hidden;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            mix-blend-mode: lighten;
+            opacity: 0.95;
+            transition: var(--transition);
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+            opacity: 1;
         }
 
         .product-title {
-            font-size: 1.25rem;
-            margin-bottom: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
             color: var(--color-white);
-        }
-
-        .product-desc {
-            font-size: 0.9rem;
-            color: var(--color-text-muted);
-            margin-bottom: 20px;
+            line-height: 1.4;
             flex-grow: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
         }
 
         .product-price {
@@ -119,6 +130,7 @@
                     <li><a href="index.html#services">Services</a></li>
                     <li><a href="index.html#suzuki">Suzuki Swift PRO</a></li>
                     <li><a href="shop.html" style="color: var(--color-white); opacity: 1;">Shop</a></li>
+                    <li><a href="index.html#reviews">Reviews</a></li>
                     <li><a href="index.html#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -147,14 +159,12 @@
         <div class="container">
             <div class="product-grid">
                 
-                <!-- Product 1 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <i class="fa-solid fa-car-side"></i>
+                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749466336318-300x300.jpg" alt="HONDA SMART KEY 2 BUTTON">
                     </div>
-                    <h3 class="product-title">Toyota Smart Key</h3>
-                    <p class="product-desc">Uncut Smart Key ready for programming. Suitable for most modern Toyota push-to-start models.</p>
-                    <div class="product-price">$149.00</div>
+                    <h3 class="product-title">HONDA SMART KEY 2 BUTTON (CONTINENTAL) 72147-T5A-U01</h3>
+                    <div class="product-price">$145.00</div>
                     <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
                         <i class="fa-solid fa-cart-shopping"></i> Buy Now
                     </a>
@@ -163,14 +173,12 @@
                     </div>
                 </div>
 
-                <!-- Product 2 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <i class="fa-solid fa-key"></i>
+                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749466336318-300x300.jpg" alt="HONDA SMART KEY 2 BUTTON J01">
                     </div>
-                    <h3 class="product-title">Mazda Smart Key</h3>
-                    <p class="product-desc">Replacement fob for Mazda vehicles. Includes emergency blade blank inside.</p>
-                    <div class="product-price">$149.00</div>
+                    <h3 class="product-title">HONDA SMART KEY 2 BUTTON (CONTINENTAL) 72147-T5C-J01</h3>
+                    <div class="product-price">$145.00</div>
                     <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
                         <i class="fa-solid fa-cart-shopping"></i> Buy Now
                     </a>
@@ -179,14 +187,12 @@
                     </div>
                 </div>
 
-                <!-- Product 3 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <i class="fa-solid fa-car-on"></i>
+                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749466324076-1-300x300.jpg" alt="HONDA SMART KEY 3 BUTTON">
                     </div>
-                    <h3 class="product-title">Nissan Smart Key</h3>
-                    <p class="product-desc">OEM style Nissan intelligent key blank. Compatible with Tiida, Leaf, Dualis and more.</p>
-                    <div class="product-price">$149.00</div>
+                    <h3 class="product-title">HONDA SMART KEY 3 BUTTON WITH BOOT 72147-T9A-J01</h3>
+                    <div class="product-price">$225.00</div>
                     <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
                         <i class="fa-solid fa-cart-shopping"></i> Buy Now
                     </a>
@@ -195,14 +201,12 @@
                     </div>
                 </div>
 
-                <!-- Product 4 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <i class="fa-solid fa-unlock-keyhole"></i>
+                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749466324076-1-300x300.jpg" alt="HONDA SMART KEY 3 BUTTON PANASONIC">
                     </div>
-                    <h3 class="product-title">Honda Remote Key</h3>
-                    <p class="product-desc">Integrated 2/3 button remote with key blade. Needs cutting and programming locally.</p>
-                    <div class="product-price">$129.00</div>
+                    <h3 class="product-title">HONDA SMART KEY 3 BUTTON (PANASONIC) 007-AA0102</h3>
+                    <div class="product-price">$325.00</div>
                     <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
                         <i class="fa-solid fa-cart-shopping"></i> Buy Now
                     </a>
@@ -211,14 +215,68 @@
                     </div>
                 </div>
 
-                <!-- Product 5 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <i class="fa-solid fa-car-burst"></i>
+                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749467705245-300x300.png" alt="MAZDA SMART CARD 2 BUTTON">
                     </div>
-                    <h3 class="product-title">Subaru Remote Key</h3>
-                    <p class="product-desc">Subaru remote key blank. Perfect for replacing worn out rubber buttons or lost spares.</p>
-                    <div class="product-price">$139.00</div>
+                    <h3 class="product-title">MAZDA SMART CARD REMOTE KEY 2 BUTTON</h3>
+                    <div class="product-price">$145.00</div>
+                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
+                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
+                    </a>
+                    <div class="stripe-badge">
+                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749467705215-300x300.png" alt="MAZDA SMART CARD 4 BUTTON">
+                    </div>
+                    <h3 class="product-title">MAZDA SMART CARD REMOTE KEY 4 BUTTON (SLIDING DOORS)</h3>
+                    <div class="product-price">$145.00</div>
+                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
+                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
+                    </a>
+                    <div class="stripe-badge">
+                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749467705155-300x300.png" alt="MAZDA SMART KEY 2 BUTTON ID49">
+                    </div>
+                    <h3 class="product-title">MAZDA SMART KEY 2 BUTTON ID49 SKE13D-01</h3>
+                    <div class="product-price">$135.00</div>
+                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
+                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
+                    </a>
+                    <div class="stripe-badge">
+                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://autokeys.kiwi/wp-content/uploads/2024/02/A61f42044817e49b3a6a7573bed1b1bfeS-300x300.webp" alt="MAZDA SMART KEY 3 BUTTON WITH BOOT">
+                    </div>
+                    <h3 class="product-title">MAZDA SMART KEY 3 BUTTON WITH BOOT ID49 SKE13D-01</h3>
+                    <div class="product-price">$135.00</div>
+                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
+                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
+                    </a>
+                    <div class="stripe-badge">
+                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749467705155-300x300.png" alt="MAZDA SMART REMOTE 2 BUTTON SKE11A-03">
+                    </div>
+                    <h3 class="product-title">MAZDA SMART REMOTE KEY 2 BUTTON SKE11A-03</h3>
+                    <div class="product-price">$125.00</div>
                     <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
                         <i class="fa-solid fa-cart-shopping"></i> Buy Now
                     </a>
