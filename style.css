@@ -193,6 +193,10 @@ a {
     cursor: pointer;
     background: none;
     border: none;
+    padding: 8px; /* Increased tap target */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo {
@@ -881,10 +885,26 @@ input:focus, select:focus {
         gap: 24px;
     }
     
-    .features-row,
+    .trust-features {
+        padding: 40px 0;
+    }
+
+    .features-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .f-item {
+        padding: 10px;
+    }
+
     .pricing-grid {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 20px;
+    }
+    
+    .pricing-section {
+        padding-bottom: 120px; /* Stronger offset for floating button */
     }
     
     .floating-cta {
@@ -893,9 +913,13 @@ input:focus, select:focus {
     }
     
     .btn-float {
-        width: 50px;
-        height: 50px;
-        font-size: 1.25rem;
+        width: 55px;
+        height: 55px;
+        font-size: 1.5rem;
+    }
+    
+    .header-container {
+        padding: 0 16px; /* Prevent bleed on edges */
     }
     
     .menu-toggle {
@@ -908,9 +932,11 @@ input:focus, select:focus {
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: var(--color-bg-dark);
+        background: rgba(15, 17, 21, 0.9);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
         border-bottom: 1px solid var(--color-border);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.4);
     }
     
     .nav-menu.active {

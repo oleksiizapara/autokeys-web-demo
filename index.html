@@ -37,9 +37,9 @@
                 <a href="tel:02040111533" class="btn btn-primary emergency-btn">
                     <i class="fa-solid fa-phone"></i> <span class="phone-number">020 4011 1533</span>
                 </a>
-                <div class="menu-toggle" id="mobile-menu">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
+                <button class="menu-toggle" id="mobile-menu" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars" id="menu-icon"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -370,10 +370,20 @@
         // Mobile menu toggle
         const menuToggle = document.getElementById('mobile-menu');
         const navMenu = document.getElementById('nav-menu');
+        const menuIcon = document.getElementById('menu-icon');
         
-        if(menuToggle && navMenu) {
+        if(menuToggle && navMenu && menuIcon) {
             menuToggle.addEventListener('click', function() {
                 navMenu.classList.toggle('active');
+                
+                // Swap icon
+                if(navMenu.classList.contains('active')) {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-xmark');
+                } else {
+                    menuIcon.classList.remove('fa-xmark');
+                    menuIcon.classList.add('fa-bars');
+                }
             });
         }
 
@@ -385,6 +395,8 @@
                 // Hide mobile menu if open
                 if(navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
+                    menuIcon.classList.remove('fa-xmark');
+                    menuIcon.classList.add('fa-bars');
                 }
                 
                 const target = document.querySelector(this.getAttribute('href'));
