@@ -632,19 +632,18 @@ a {
 
 .glass-float {
     position: absolute;
-    bottom: -20px; /* Slight overflow */
+    bottom: 20px;
     right: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 16px 24px;
-    border-radius: 12px;
+    background: rgba(15, 17, 21, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 16px;
+    border-radius: 8px;
     color: var(--color-white);
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
-    gap: 10px;
-    transform: translateY(-40px);
+    gap: 8px;
 }
 
 .glass-float i {
@@ -894,14 +893,11 @@ input:focus, select:focus {
     }
 
     .glass-float {
-        position: relative;
-        bottom: 0;
-        right: 0;
-        transform: none;
-        margin-top: -30px;
-        margin-left: 20px;
-        display: inline-flex;
-        width: auto;
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        padding: 6px 12px;
+        font-size: 0.8rem;
     }
     
     .trust-features {
