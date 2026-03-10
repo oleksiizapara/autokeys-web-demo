@@ -264,7 +264,7 @@ a {
     display: flex;
     align-items: center;
     padding-top: 80px; 
-    background-image: url('https://images.unsplash.com/photo-1549646922-965daee3e0d2?q=80&w=2670&auto=format&fit=crop'); 
+    background-image: url('hero_van_new.png');
     background-size: cover;
     background-position: center;
 }
