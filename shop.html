@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop | Auto Keys | Post Ordering</title>
+    <title>Shop | Auto Keys NZ</title>
     <meta name="description"
         content="Order replacement car keys online. We ship smart keys and blanks for Toyota, Mazda, Nissan, Honda, and Subaru across New Zealand.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,15 +19,88 @@
             padding-bottom: 50px;
             text-align: center;
         }
+        
+        .shop-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: var(--color-card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--color-border);
+        }
+        
+        .search-bar {
+            flex-grow: 1;
+            max-width: 400px;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            background: var(--color-bg-dark);
+            color: var(--color-white);
+            font-family: var(--font-main);
+            font-size: 1rem;
+        }
+        
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+        
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-muted);
+        }
+        
+        .category-filter {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        
+        .cat-btn {
+            background: var(--color-bg-dark);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-main);
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        
+        .cat-btn.active, .cat-btn:hover {
+            background: var(--color-primary);
+            color: #000;
+            border-color: var(--color-primary);
+        }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
             margin-bottom: 80px;
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
             .product-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -43,7 +116,7 @@
             background-color: var(--color-card-bg);
             border: 1px solid var(--color-border);
             border-radius: 12px;
-            padding: 30px;
+            padding: 24px;
             text-align: center;
             transition: var(--transition);
             display: flex;
@@ -58,45 +131,55 @@
         }
 
         .product-image {
-            background: linear-gradient(145deg, #1a1d24, #0f1115);
+            background-color: #ffffff; /* User requested solid white background for images */
             border-radius: 8px;
-            height: 220px;
+            height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
             overflow: hidden;
+            padding: 10px;
         }
 
         .product-image img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            mix-blend-mode: lighten;
-            opacity: 0.95;
             transition: var(--transition);
         }
         
         .product-card:hover .product-image img {
             transform: scale(1.05);
-            opacity: 1;
         }
 
         .product-title {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
             color: var(--color-white);
             line-height: 1.4;
             flex-grow: 1;
             display: flex;
             align-items: flex-start;
             justify-content: center;
+            text-transform: uppercase;
+        }
+        
+        .product-desc {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+            text-align: left;
         }
 
         .product-price {
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 800;
-            color: var(--color-white);
+            color: var(--color-primary);
             margin-bottom: 20px;
         }
 
@@ -111,9 +194,28 @@
         }
 
         .stripe-badge i {
-            color: #635bff;
+            color: #25d366; /* WhatsApp Green */
             font-size: 1.2rem;
         }
+        
+        #loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+        }
+        
+        .loader-spinner {
+            border: 4px solid rgba(255, 184, 0, 0.2);
+            border-left-color: var(--color-primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 
@@ -150,142 +252,34 @@
     <div class="shop-header">
         <div class="container">
             <span class="section-tag">Online Store</span>
-            <h2>Order Keys Directly to Your Door</h2>
-            <p style="color: var(--color-text-muted); max-width: 600px; margin: 0 auto;">Select your vehicle make below to order a replacement key blank or remote. Payments are securely processed via Stripe.</p>
+            <h2>Keys & Remotes Supplies</h2>
+            <p style="color: var(--color-text-muted); max-width: 600px; margin: 0 auto;">Browse our live inventory of smart keys and blanks. Send us an inquiry via WhatsApp to arrange programming or fast delivery anywhere in NZ.</p>
         </div>
     </div>
 
     <section class="section" style="padding-top: 0;">
         <div class="container">
-            <div class="product-grid">
-                
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749466336318-300x300.jpg" alt="HONDA SMART KEY 2 BUTTON">
-                    </div>
-                    <h3 class="product-title">HONDA SMART KEY 2 BUTTON (CONTINENTAL) 72147-T5A-U01</h3>
-                    <div class="product-price">$145.00</div>
-                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
-                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
-                    </a>
-                    <div class="stripe-badge">
-                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
-                    </div>
+            
+            <div class="shop-controls">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search by brand, button count, keyword...">
                 </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749466336318-300x300.jpg" alt="HONDA SMART KEY 2 BUTTON J01">
-                    </div>
-                    <h3 class="product-title">HONDA SMART KEY 2 BUTTON (CONTINENTAL) 72147-T5C-J01</h3>
-                    <div class="product-price">$145.00</div>
-                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
-                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
-                    </a>
-                    <div class="stripe-badge">
-                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
-                    </div>
+                <!-- Categories will be injected here dynamically -->
+                <div class="category-filter" id="categoryFilter">
+                    <button class="cat-btn active" data-cat="all">All Brands</button>
                 </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749466324076-1-300x300.jpg" alt="HONDA SMART KEY 3 BUTTON">
-                    </div>
-                    <h3 class="product-title">HONDA SMART KEY 3 BUTTON WITH BOOT 72147-T9A-J01</h3>
-                    <div class="product-price">$225.00</div>
-                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
-                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
-                    </a>
-                    <div class="stripe-badge">
-                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749466324076-1-300x300.jpg" alt="HONDA SMART KEY 3 BUTTON PANASONIC">
-                    </div>
-                    <h3 class="product-title">HONDA SMART KEY 3 BUTTON (PANASONIC) 007-AA0102</h3>
-                    <div class="product-price">$325.00</div>
-                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
-                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
-                    </a>
-                    <div class="stripe-badge">
-                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749467705245-300x300.png" alt="MAZDA SMART CARD 2 BUTTON">
-                    </div>
-                    <h3 class="product-title">MAZDA SMART CARD REMOTE KEY 2 BUTTON</h3>
-                    <div class="product-price">$145.00</div>
-                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
-                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
-                    </a>
-                    <div class="stripe-badge">
-                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749467705215-300x300.png" alt="MAZDA SMART CARD 4 BUTTON">
-                    </div>
-                    <h3 class="product-title">MAZDA SMART CARD REMOTE KEY 4 BUTTON (SLIDING DOORS)</h3>
-                    <div class="product-price">$145.00</div>
-                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
-                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
-                    </a>
-                    <div class="stripe-badge">
-                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749467705155-300x300.png" alt="MAZDA SMART KEY 2 BUTTON ID49">
-                    </div>
-                    <h3 class="product-title">MAZDA SMART KEY 2 BUTTON ID49 SKE13D-01</h3>
-                    <div class="product-price">$135.00</div>
-                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
-                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
-                    </a>
-                    <div class="stripe-badge">
-                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://autokeys.kiwi/wp-content/uploads/2024/02/A61f42044817e49b3a6a7573bed1b1bfeS-300x300.webp" alt="MAZDA SMART KEY 3 BUTTON WITH BOOT">
-                    </div>
-                    <h3 class="product-title">MAZDA SMART KEY 3 BUTTON WITH BOOT ID49 SKE13D-01</h3>
-                    <div class="product-price">$135.00</div>
-                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
-                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
-                    </a>
-                    <div class="stripe-badge">
-                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://autokeys.kiwi/wp-content/uploads/2025/08/1749467705155-300x300.png" alt="MAZDA SMART REMOTE 2 BUTTON SKE11A-03">
-                    </div>
-                    <h3 class="product-title">MAZDA SMART REMOTE KEY 2 BUTTON SKE11A-03</h3>
-                    <div class="product-price">$125.00</div>
-                    <a href="javascript:alert('This will redirect to Stripe Payment Link: buy.stripe.com/...')" class="btn btn-primary btn-full">
-                        <i class="fa-solid fa-cart-shopping"></i> Buy Now
-                    </a>
-                    <div class="stripe-badge">
-                        <i class="fa-brands fa-cc-stripe"></i> Secure checkout
-                    </div>
-                </div>
-
             </div>
+            
+            <div id="loading">
+                <div class="loader-spinner"></div>
+                Loading catalog...
+            </div>
+            
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be dynamically loaded here from products.json -->
+            </div>
+            
         </div>
     </section>
 
@@ -322,6 +316,110 @@
                     menuIcon.classList.remove('fa-xmark');
                     menuIcon.classList.add('fa-bars');
                 }
+            });
+        }
+        
+        // Shop Logic
+        let allProducts = [];
+        const productGrid = document.getElementById('productGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const loading = document.getElementById('loading');
+
+        // Fetch products from JSON
+        fetch('products.json')
+            .then(response => response.json())
+            .then(data => {
+                allProducts = data;
+                loading.style.display = 'none';
+                
+                // Extract unique categories
+                const categories = new Set();
+                data.forEach(p => {
+                    if (p.category) {
+                        // Clean up WP URLs to nice names (e.g. honda-remote-keys -> Honda)
+                        const niceName = p.category.split('-')[0].charAt(0).toUpperCase() + p.category.split('-')[0].slice(1);
+                        categories.add(niceName);
+                        p.niceCategory = niceName; // Add property for easy filtering
+                    }
+                });
+                
+                // Build category buttons
+                categories.forEach(cat => {
+                    const btn = document.createElement('button');
+                    btn.className = 'cat-btn';
+                    btn.setAttribute('data-cat', cat);
+                    btn.innerText = cat;
+                    categoryFilter.appendChild(btn);
+                });
+                
+                // Category click events
+                document.querySelectorAll('.cat-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        filterProducts();
+                    });
+                });
+                
+                // Initial render
+                renderProducts(allProducts);
+            })
+            .catch(err => {
+                loading.innerHTML = 'Error loading the catalog. Please refresh the page.';
+                console.error(err);
+            });
+
+        // Search event
+        searchInput.addEventListener('input', filterProducts);
+
+        function filterProducts() {
+            const query = searchInput.value.toLowerCase();
+            const activeCatBtn = document.querySelector('.cat-btn.active');
+            const activeCat = activeCatBtn ? activeCatBtn.getAttribute('data-cat') : 'all';
+            
+            const filtered = allProducts.filter(p => {
+                const matchesSearch = p.title.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query));
+                const matchesCat = activeCat === 'all' || p.niceCategory === activeCat;
+                return matchesSearch && matchesCat;
+            });
+            
+            renderProducts(filtered);
+        }
+
+        function renderProducts(products) {
+            productGrid.innerHTML = '';
+            
+            if (products.length === 0) {
+                productGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--color-text-muted);">No products found matching your criteria.</div>';
+                return;
+            }
+            
+            products.forEach(p => {
+                const whatsAppMsg = encodeURIComponent(`Hi Auto Keys,\nI am interested in ordering:\n*${p.title}*\nPrice: ${p.price}\n\nCould you give me more details/shipping info?`);
+                const whatsAppUrl = `https://wa.me/642040111533?text=${whatsAppMsg}`;
+                
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div>
+                        <div class="product-image">
+                            <img src="${p.image || 'images/placeholder-key.png'}" alt="${p.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x300/ffffff/cccccc?text=Auto+Keys'">
+                        </div>
+                        <h3 class="product-title">${p.title}</h3>
+                        ${p.description ? `<div class="product-desc">${p.description}</div>` : ''}
+                    </div>
+                    <div>
+                        <div class="product-price">${p.price || 'POA'}</div>
+                        <a href="${p.stripe_link ? p.stripe_link : whatsAppUrl}" target="_blank" class="btn btn-primary btn-full">
+                            <i class="fa-brands fa-whatsapp"></i> Order Inquiry
+                        </a>
+                        <div class="stripe-badge" style="justify-content: center;">
+                            WhatsApp directly to local expert
+                        </div>
+                    </div>
+                `;
+                productGrid.appendChild(card);
             });
         }
     </script>
