@@ -232,8 +232,27 @@ a {
 }
 
 .emergency-btn {
+    position: relative;
     padding: 10px 20px;
     font-size: 0.95rem;
+}
+
+.emergency-pulse {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 10px;
+    height: 10px;
+    background-color: #ff4757;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ff4757;
+    animation: beacon 2s infinite;
+}
+
+@keyframes beacon {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 /* ==================================
