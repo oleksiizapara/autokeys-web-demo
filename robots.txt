@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /docs/
+Disallow: /tmp/
+Allow: /
+
+Sitemap: https://autokeys.kiwi/sitemap.xml

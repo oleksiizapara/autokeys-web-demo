@@ -538,6 +538,13 @@
         const searchInput = document.getElementById('searchInput');
         const categoryFilter = document.getElementById('categoryFilter');
         const loading = document.getElementById('loading');
+        const modal = document.getElementById('productModal');
+        const span = document.getElementsByClassName('close-modal')[0];
+        
+        // Cache original SEO tags to restore them when modal closes
+        const originalTitle = document.title;
+        const metaDescEl = document.querySelector('meta[name="description"]');
+        const originalMetaDesc = metaDescEl ? metaDescEl.getAttribute('content') : '';
 
         // Fetch products from JSON
         fetch('products.json')
@@ -546,9 +553,12 @@
                 allProducts = data;
                 loading.style.display = 'none';
                 
-                // Extract unique categories
+                // Extract unique categories and generate URL slugs
                 const categories = new Set();
                 data.forEach(p => {
+                    // Generate SEO slug
+                    p.slug = p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+
                     if (p.category) {
                         // Clean up WP URLs to nice names (e.g. honda-remote-keys -> Honda)
                         const niceName = p.category.split('-')[0].charAt(0).toUpperCase() + p.category.split('-')[0].slice(1);
@@ -577,6 +587,9 @@
                 
                 // Initial render
                 renderProducts(allProducts);
+
+                // Check URL parameter to open specific product directly
+                checkUrlForProduct();
             })
             .catch(err => {
                 loading.innerHTML = 'Error loading the catalog. Please refresh the page.';
@@ -616,19 +629,22 @@
                 card.className = 'product-card';
                 const plainDesc = p.description ? p.description.replace(/<[^>]*>?/gm, '') : '';
                 
+                // Create SEO-friendly links structure using a tags instead of div+onclick
                 card.innerHTML = `
                     <div>
-                        <div class="product-image clickable-card-element" onclick="openModal('${p.title.replace(/'/g, "\\'")}')" title="Click to view full description">
+                        <a href="?product=${p.slug}" class="product-image clickable-card-element" onclick="openModalEvent(event, '${p.slug}')" title="Click to view full description">
                             <img src="${p.image || 'images/placeholder-key.png'}" alt="${p.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x300/ffffff/cccccc?text=Auto+Keys'">
-                        </div>
-                        <h3 class="product-title clickable-card-element" onclick="openModal('${p.title.replace(/'/g, "\\'")}')" title="Click to view full description">${p.title}</h3>
+                        </a>
+                        <a href="?product=${p.slug}" style="text-decoration:none; display: block;" onclick="openModalEvent(event, '${p.slug}')">
+                            <h3 class="product-title clickable-card-element" title="Click to view full description">${p.title}</h3>
+                        </a>
                         ${plainDesc ? `<div class="product-desc">${plainDesc}</div>` : ''}
                     </div>
                     <div>
                         <div class="product-price">${p.price || 'POA'}</div>
-                        <button onclick="openModal('${p.title.replace(/'/g, "\\'")}')" class="btn btn-primary btn-full" style="margin-bottom: 10px; background: transparent; border: 1px solid var(--color-primary); color: var(--color-white); letter-spacing: 0;">
+                        <a href="?product=${p.slug}" onclick="openModalEvent(event, '${p.slug}')" class="btn btn-primary btn-full" style="margin-bottom: 10px; background: transparent; border: 1px solid var(--color-primary); color: var(--color-white); letter-spacing: 0; text-decoration: none; display: inline-block; text-align: center; width: 100%; box-sizing: border-box;">
                             View Details
-                        </button>
+                        </a>
                         <a href="${p.stripe_link ? p.stripe_link : whatsAppUrl}" target="_blank" class="btn btn-primary btn-full">
                             <i class="fa-brands fa-whatsapp"></i> Order Inquiry
                         </a>
@@ -641,12 +657,25 @@
             });
         }
         
-        // Modal Logic
-        const modal = document.getElementById('productModal');
-        const span = document.getElementsByClassName('close-modal')[0];
+        // Modal & SEO Logic
+        window.openModalEvent = function(event, slug) {
+            if (event) {
+                // Prevent standard link navigation, we handle it via History API
+                event.preventDefault(); 
+            }
+            openModal(slug, true);
+        };
 
-        window.openModal = function(title) {
-            const p = allProducts.find(prod => prod.title === title);
+        function checkUrlForProduct() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productSlug = urlParams.get('product');
+            if (productSlug) {
+                openModal(productSlug, false);
+            }
+        }
+
+        window.openModal = function(slug, updateUrl) {
+            const p = allProducts.find(prod => prod.slug === slug);
             if (!p) return;
             
             document.getElementById('modalImage').src = p.image || 'images/placeholder-key.png';
@@ -659,19 +688,102 @@
             
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden'; // Prevent scrolling under modal
+
+            // Dynamic SEO updates
+            document.title = `${p.title} - Buy Online | Auto Keys NZ`;
+            if (metaDescEl) {
+                const cleanDesc = p.description ? p.description.replace(/<[^>]*>?/gm, '').substring(0, 155) + '...' : '';
+                metaDescEl.setAttribute('content', cleanDesc);
+            }
+
+            // Inject Schema.org markup
+            injectProductSchema(p);
+
+            // Update URL bar
+            if (updateUrl) {
+                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?product=' + p.slug;
+                window.history.pushState({path: newUrl, slug: p.slug}, '', newUrl);
+            }
         }
 
-        span.onclick = function() {
+        function injectProductSchema(p) {
+            let existingSchema = document.getElementById('product-schema-jsonld');
+            if (existingSchema) existingSchema.remove();
+
+            const plainDesc = p.description ? p.description.replace(/<[^>]*>?/gm, '') : p.title;
+            const priceVal = document.getElementById('modalPrice').innerText.replace(/[^0-9.]/g, '');
+            const finalPrice = priceVal ? parseFloat(priceVal) : 0;
+
+            const schema = {
+                "@context": "https://schema.org/",
+                "@type": "Product",
+                "name": p.title,
+                "image": p.image ? (window.location.origin + '/' + p.image) : "",
+                "description": plainDesc,
+                "brand": {
+                    "@type": "Brand",
+                    "name": p.niceCategory || "Auto Keys"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "url": window.location.protocol + "//" + window.location.host + window.location.pathname + "?product=" + p.slug,
+                    "priceCurrency": "NZD",
+                    "price": finalPrice || 0,
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "availability": "https://schema.org/InStock",
+                    "seller": {
+                        "@type": "Organization",
+                        "name": "Auto Keys NZ"
+                    }
+                }
+            };
+
+            const script = document.createElement('script');
+            script.type = "application/ld+json";
+            script.id = "product-schema-jsonld";
+            script.text = JSON.stringify(schema);
+            document.head.appendChild(script);
+        }
+
+        function closeModalWithoutHistory() {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
+
+            // Restore SEO
+            document.title = originalTitle;
+            if (metaDescEl) metaDescEl.setAttribute('content', originalMetaDesc);
+            
+            let existingSchema = document.getElementById('product-schema-jsonld');
+            if (existingSchema) existingSchema.remove();
         }
+
+        window.closeModal = function(updateUrl = true) {
+            closeModalWithoutHistory();
+            if (updateUrl) {
+                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                window.history.pushState({path: newUrl}, '', newUrl);
+            }
+        };
+
+        span.onclick = function() {
+            closeModal(true);
+        };
 
         window.onclick = function(event) {
             if (event.target == modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                closeModal(true);
             }
-        }
+        };
+
+        window.addEventListener('popstate', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productSlug = urlParams.get('product');
+            if (productSlug) {
+                openModal(productSlug, false);
+            } else {
+                closeModalWithoutHistory();
+            }
+        });
     </script>
 </body>
 

@@ -1,0 +1,44 @@
+name: Generate Sitemap
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'products.json'
+      - 'shop.html'
+      - 'index.html'
+      - 'generate_sitemap.py'
+
+jobs:
+  update-sitemap:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run Sitemap Generator
+        run: python generate_sitemap.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          # Only commit and push if there are changes
+          if ! git diff --staged --quiet; then
+            git commit -m "Auto-update sitemap.xml [skip ci]"
+            git push origin master
+          else
+            echo "No changes to sitemap.xml"
+          fi
