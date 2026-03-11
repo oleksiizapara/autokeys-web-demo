@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 import json
 import urllib.parse
 from urllib.parse import urljoin
+import markdownify
+import re
 
 base_url = 'https://autokeys.kiwi'
 shop_url = f'{base_url}/shop/'
@@ -62,9 +64,15 @@ def scrape_product_page(product_url):
         desc = ""
         desc_div = soup.find('div', id='tab-description') or soup.find('div', class_='woocommerce-product-details__short-description')
         if desc_div:
-            # Get internal HTML but clean up any weird whitespace
+            # Replace stupid emoji images with their alt text
+            for img in desc_div.find_all('img', class_='emoji'):
+                img.replace_with(img.get('alt', ''))
+            
             html = desc_div.decode_contents()
-            desc = ' '.join(html.split())
+            md = markdownify.markdownify(html, heading_style="ATX").strip()
+            # Clean up excessively padded newlines
+            md = re.sub(r'\n{3,}', '\n\n', md)
+            desc = md
             
         # Category
         cat_elem = soup.find('span', class_='posted_in')

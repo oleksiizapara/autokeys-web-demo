@@ -13,6 +13,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         .shop-header {
             padding-top: 150px;
@@ -581,7 +582,7 @@
             document.getElementById('modalImage').src = p.image || 'images/placeholder-key.png';
             document.getElementById('modalTitle').innerText = p.title;
             document.getElementById('modalPrice').innerText = p.price || 'POA';
-            document.getElementById('modalDesc').innerHTML = p.description || 'No description available.';
+            document.getElementById('modalDesc').innerHTML = p.description ? marked.parse(p.description) : 'No description available.';
             
             const whatsAppMsg = encodeURIComponent(`Hi Auto Keys,\nI am interested in ordering:\n*${p.title}*\nPrice: ${p.price}\n\nCould you give me more details/shipping info?`);
             document.getElementById('modalWhatsAppBtn').href = p.stripe_link ? p.stripe_link : `https://wa.me/642040111533?text=${whatsAppMsg}`;
