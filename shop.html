@@ -322,12 +322,31 @@
         }
 
         .modal-desc-html ul {
-            margin-left: 20px;
-            margin-bottom: 15px;
+            list-style: none; /* Remove standard bullets */
+            padding: 0;
+            margin: 0 0 20px 0;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .modal-desc-html li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .modal-desc-html li::before {
+            content: '\f054'; /* FontAwesome chevron-right */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--color-primary);
+            margin-right: 10px;
+            font-size: 0.8rem;
+            margin-top: 3px;
         }
 
         .modal-desc-html p {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .modal-desc-html hr {
@@ -338,6 +357,15 @@
         .modal-desc-html img {
             max-width: 20px;
             vertical-align: middle;
+        }
+        
+        /* Cursor pointer for clickable elements */
+        .clickable-card-element {
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .clickable-card-element:hover {
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -556,10 +584,10 @@
                 
                 card.innerHTML = `
                     <div>
-                        <div class="product-image">
+                        <div class="product-image clickable-card-element" onclick="openModal('${p.title.replace(/'/g, "\\'")}')" title="Click to view full description">
                             <img src="${p.image || 'images/placeholder-key.png'}" alt="${p.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x300/ffffff/cccccc?text=Auto+Keys'">
                         </div>
-                        <h3 class="product-title">${p.title}</h3>
+                        <h3 class="product-title clickable-card-element" onclick="openModal('${p.title.replace(/'/g, "\\'")}')" title="Click to view full description">${p.title}</h3>
                         ${plainDesc ? `<div class="product-desc">${plainDesc}</div>` : ''}
                     </div>
                     <div>
