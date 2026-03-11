@@ -21,10 +21,12 @@ os.makedirs(img_dir, exist_ok=True)
 all_products = []
 
 def download_image(img_url, img_name):
+    file_path = os.path.join(img_dir, img_name)
+    if os.path.exists(file_path):
+        return True
     try:
         r = requests.get(img_url, headers=headers, stream=True, timeout=10)
         if r.status_code == 200:
-            file_path = os.path.join(img_dir, img_name)
             with open(file_path, 'wb') as f:
                 for chunk in r.iter_content(1024):
                     f.write(chunk)
@@ -44,15 +46,17 @@ def scrape_product_page(product_url):
         title = title_elem.text.strip() if title_elem else ''
         
         # Price
-        price_elem = soup.find('p', class_='price')
+        summary = soup.find('div', class_='summary')
         price = ''
-        if price_elem:
-            # Sometime prices have del and ins
-            ins = price_elem.find('ins')
+        if summary:
+            # First try ins if it's on sale
+            ins = summary.find('ins')
             if ins:
-                price = ins.text.strip()
+                p_elem = ins.find(class_='woocommerce-Price-amount')
+                if p_elem: price = p_elem.text.strip()
             else:
-                price = price_elem.text.strip()
+                p_elem = summary.find(class_='woocommerce-Price-amount')
+                if p_elem: price = p_elem.text.strip()
                 
         # Description
         desc = ""
