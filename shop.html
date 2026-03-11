@@ -322,31 +322,17 @@
         }
 
         .modal-desc-html ul {
-            list-style: none; /* Remove standard bullets */
-            padding: 0;
-            margin: 0 0 20px 0;
-            border-top: 1px solid var(--color-border);
+            margin-left: 20px;
+            margin-bottom: 15px;
         }
 
         .modal-desc-html li {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--color-border);
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .modal-desc-html li::before {
-            content: '\f054'; /* FontAwesome chevron-right */
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            color: var(--color-primary);
-            margin-right: 10px;
-            font-size: 0.8rem;
-            margin-top: 3px;
+            margin-bottom: 8px;
+            padding-left: 5px;
         }
 
         .modal-desc-html p {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .modal-desc-html hr {
@@ -366,6 +352,28 @@
         }
         .clickable-card-element:hover {
             opacity: 0.8;
+        }
+
+        /* Mobile Adjustments for Modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+            .modal-body {
+                padding: 20px;
+                gap: 20px;
+            }
+            .modal-image-col, .modal-info-col {
+                min-width: 100%;
+                flex: none;
+            }
+            .modal-image-col img {
+                max-height: 250px;
+            }
+            .modal-title {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
