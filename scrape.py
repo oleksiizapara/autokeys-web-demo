@@ -62,7 +62,9 @@ def scrape_product_page(product_url):
         desc = ""
         desc_div = soup.find('div', id='tab-description') or soup.find('div', class_='woocommerce-product-details__short-description')
         if desc_div:
-            desc = desc_div.get_text(separator=' ', strip=True)
+            # Get internal HTML but clean up any weird whitespace
+            html = desc_div.decode_contents()
+            desc = ' '.join(html.split())
             
         # Category
         cat_elem = soup.find('span', class_='posted_in')
